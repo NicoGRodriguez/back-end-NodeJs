@@ -7,6 +7,7 @@ const {
   renew,
 } = require("../controllers/auth.controller");
 const { validarCampo } = require("../middlewares/validar-campo");
+const { validarJWT } = require("../middlewares/validar-jwt");
 //La inicializo en router, para conigurar
 const router = Router();
 //coolback === controlador
@@ -28,14 +29,14 @@ router.post(
 router.post(
   "/",
   [
-    check("Email", "El Email es obligatorio").isEmail(),
+    check("email", "El Email es obligatorio").isEmail(),
     check("password", "El Password es obligatorio").isLength({ min: 6 }),
     validarCampo,
   ],
   login
 );
 //Validar Token
-router.get("/renew", renew);
+router.get("/renew", validarJWT, renew);
 
 //exporto las rutas
 module.exports = router;

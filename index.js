@@ -1,10 +1,13 @@
 const express = require("express");
 //cors configuracion importar
 const cors = require("cors");
+const { dbConnection } = require("./db/config");
 //Configuracion de puerto con variable de entorno
 require("dotenv").config();
 // Crear el servidor /aplicacion de express
 const app = express();
+//base de datos
+dbConnection();
 //Directorio Publico
 app.use(express.static("public"));
 //middlerware de cors
